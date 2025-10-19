@@ -191,31 +191,7 @@ sequenceDiagram
     VC->>U: Actualiza vista con nuevas temperaturas
     deactivate VC
     Note right of U: Angular detecta cambios<br/>y re-renderiza automáticamente
-    
-    %% ══════════════════════════════════════════════════════════
-    %% FASE 4: MANEJO DE ERRORES (Flujo alternativo)
-    %% ══════════════════════════════════════════════════════════
-    
-    Note over VC,API: FLUJO ALTERNATIVO: Error en API
-    
-    VC->>WS: obtenerPronostico(lat, lon)
-    activate WS
-    WS->>API: HTTP GET request
-    activate API
-    API-->>WS: Error 401/500/Network
-    deactivate API
-    
-    WS->>WS: catchError()
-    Note right of WS: Captura error HTTP<br/>Lanza excepción
-    
-    WS-->>VC: Error Observable
-    deactivate WS
-    
-    VC->>VC: error = "No se pudo obtener..."<br/>cargando = false
-    Note right of VC: Actualiza estado<br/>Muestra mensaje al usuario
-    
-    VC->>U: Muestra MatSnackBar con error
-    Note right of U: Notificación temporal<br/>con mensaje de error
+   
 
 ``` 
     
