@@ -1,0 +1,63 @@
+classDiagram
+    %% Definición de la clase DiaPronostico (Modelo)
+    class DiaPronostico {
+        +Date fecha
+        +number temperatura
+        +string iconoClima
+        +string descripcion
+        %% Modelo simple para representar datos del pronóstico
+        %% No tiene métodos, solo estructura de datos
+    }
+
+    %% Definición de la clase WeatherService (Servicio)
+    class WeatherService {
+        -string apiKey
+        -string apiUrl
+        -HttpClient http
+        %% ── Constructor ──
+        +WeatherService(http: HttpClient)
+        %% ── Métodos Públicos ──
+        +obtenerPronostico(lat: number, lon: number) Observable~DiaPronostico[]~
+        -construirURL(lat: number, lon: number) string
+        -transformarRespuesta(response: any) DiaPronostico[]
+        %% ── Comentarios sobre métodos ──
+        %% obtenerPronostico: Método principal que realiza la petición HTTP
+        %% construirURL: Construye la URL con parámetros y apiKey
+        %% transformarRespuesta: Convierte JSON de API a modelo DiaPronostico
+    }
+
+    %% Definición de la clase WeatherComponent (Componente)
+    class WeatherComponent {
+        +DiaPronostico[] pronosticoDias
+        +string unidad
+        +boolean cargando
+        +string|null error
+        -WeatherService weatherService
+        %% ── Constructor ──
+        +WeatherComponent(weatherService: WeatherService)
+        %% ── Ciclo de vida Angular ──
+        +ngOnInit() void
+        %% ── Métodos de Carga de Datos ──
+        +cargarPronostico() void
+        -manejarError(error: any) void
+        %% ── Métodos de Conversión de Temperatura ──
+        +toggleUnidad() void
+        +convertirTodosDiasAFahrenheit() void
+        +convertirTodosDiasACelsius() void
+        -celsiusAFahrenheit(celsius: number) number
+        -fahrenheitACelsius(fahrenheit: number) number
+        %% ── Comentarios sobre métodos clave ──
+        %% ngOnInit: Se ejecuta al inicializar el componente, llama a cargarPronostico
+        %% cargarPronostico: Llama al servicio, activa estado de carga
+        %% toggleUnidad: Cambia entre C y F, recalcula temperaturas
+    }
+
+    %% Relaciones entre clases
+    WeatherComponent ..> WeatherService : usa (inyección de dependencia)
+    WeatherComponent "1" o-- "*" DiaPronostico : contiene array
+    WeatherService ..> DiaPronostico : retorna array
+    
+    %% Notas explicativas
+    note for DiaPronostico "MODELO: Estructura de datos\nSin lógica de negocio\nRepresenta un día del pronóstico"
+    note for WeatherService "SERVICIO: Gestión de datos\nComunicación con API externa\nTransformación de respuesta JSON"
+    note for WeatherComponent "COMPONENTE: Controlador de vista\nOrquesta lógica de negocio\nGestiona estado y eventos de usuario"

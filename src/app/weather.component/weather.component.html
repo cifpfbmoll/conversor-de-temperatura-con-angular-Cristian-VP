@@ -1,0 +1,56 @@
+<mat-card class="weather-card">  
+    <mat-card-header>
+        <section class="current-temperature-section">
+            <figcaption>
+                <img [src]="currentIconUri()" alt="Condition icon">
+            </figcaption>
+            <article class="current-temperature">
+                <div class="temperature-value">
+                    <span>{{ currentTemperature() }}</span>
+                </div>
+                <div class="temperature-units">
+                    <div>
+                        <span class="temperature-celsius-unit" 
+                              *ngIf="unit() === 'C'"
+                              aria-label="°Celsius">°C</span>                        
+                        <a href="#" 
+                           *ngIf="unit() !== 'C'"
+                           (click)="toggleUnit('C'); $event.preventDefault()" 
+                           aria-label="Cambiar a Celsius"
+                           class="temperature-unit-link">°C</a>
+                        
+                        <span class="separator"></span>
+                        <a href="#" 
+                           *ngIf="unit() !== 'F'"
+                           (click)="toggleUnit('F'); $event.preventDefault()" 
+                           aria-label="Cambiar a Fahrenheit"
+                           class="temperature-unit-link">°F</a>
+                        
+                        <span class="temperature-farenheit-unit" 
+                              *ngIf="unit() === 'F'"
+                              aria-label="°Fahrenheit">°F</span>
+                    </div>
+                </div>
+            </article>
+        </section>
+        <section class="current-info">
+            <p>Tiempo</p>
+            <p class="current-day">{{ currentDay().currentTime }}</p>
+            <p class="weather-condition">{{ reformatWeatherCondition() }}</p>
+        </section>
+    </mat-card-header>
+    <mat-card-content>
+        <section *ngFor="let day of weatherData()" class="forecast-card">
+            <div class="forecast-header">
+                <p>{{ day.dayName | slice:0:3 }}</p>
+            </div>
+            <figcaption class="forecast-body">
+                <img [src]="day.iconBaseUri.concat('.png')" alt="Condition icon">
+            </figcaption>
+            <footer>
+                <div>{{ day.maxTemperature }}º</div>
+                <div>{{ day.minTemperature }}º</div>
+            </footer>
+        </section>
+    </mat-card-content>
+</mat-card>

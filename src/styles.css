@@ -1,0 +1,51 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lexend+Deca:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lexend+Deca:wght@100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+:root {
+    /* Color Palette */
+    --primary-color: #1075da;
+    --accent-color: #ff4081;
+    --background-color: #dfdae9;
+    --background-color-white: whitesmoke;
+    --background-light-color: #eeecec;
+    --text-color: #212121;
+    --text-grey: rgb(155, 150, 150);
+    --text-light-grey: #c2bcbc;
+
+    /* Typography */
+    --font-primary: 'Nunito Sans', sans-serif;
+    --font-secondary: 'Inter', sans-serif;
+
+    --font-size-xs: 12px;
+    --font-size-s: 14px;
+    --font-size-m: 16px;
+    --font-size-l: 18px;
+    --font-size-xl: 24px;
+    --font-size-xxl: 32px;
+    --font-size-big-mac: 56px;
+    --font-weight-normal: 400;
+    --font-weight-semi-bold: 600;
+    --font-weight-bold: 700;
+    --font-weight-extra-bold: 800;
+    
+
+    /* Border Radius */
+    --border-radius-sm: 4px;
+    --border-radius-md: 8px;
+    --border-radius-lg: 11px;
+
+}
+
+*{ 
+    box-sizing: border-box; 
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    text-decoration: none;
+}
+
+body {
+    font-family: var(--font-primary);
+    background-color: var(--background-color); 
+    color: var(--text-color);
+}

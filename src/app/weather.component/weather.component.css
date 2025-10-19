@@ -1,0 +1,161 @@
+mat-card {
+    width: 65vw;
+    height: auto;
+}
+
+mat-card-header {
+    height: auto;
+    padding: 1rem;
+    background-color: var(--background-light-color);
+    border-top-left-radius: var(--border-radius-lg);
+    border-top-right-radius: var(--border-radius-lg);
+    /* background-color: lightgreen; */
+}
+
+.current-temperature-section {
+    display: flex;
+    width: 50%;
+    /* background-color: lightcoral; */
+}
+
+figcaption {
+    display: inline-block;
+    width: auto;
+    /* background-color: lightgray; */
+}
+
+.current-temperature{
+    flex: 1;
+    height: 100%;
+    padding-left: 1em;
+    display: inline-block;
+    /* background-color: lightyellow; */
+}
+
+.current-temperature{
+    display: flex;
+}
+
+.temperature-value {
+    width: auto;
+    height: 100%;
+    font-size: var(--font-size-big-mac);
+    font-weight: var(--font-weight-bold);
+    line-height: 4.5rem;
+    text-align: center;
+    /* background-color: lightpink; */
+}
+
+.celsius-value {
+    font-size: var(--font-size-big-mac);
+}
+
+.temperature-units {
+    flex: 1;
+    font-size: var(--font-size-xxl);
+    /* background-color: lightseagreen; */
+}
+
+.temperature-units div{
+    margin-top: 0.4em;
+    margin-left: 0.2em;
+    height: 0.7em;
+    /* background-color: lightgoldenrodyellow; */
+}
+
+.temperature-units div span, a {
+    display: inline-block;
+    
+}
+
+.temperature-units div a {
+    color: var(--text-grey);
+}
+
+.temperature-units div a:hover {
+    cursor: pointer;
+    color: var(--primary-color);
+}
+.separator {
+    margin: 0 0.2em;
+    width: 0.1em;
+    height: 100%;
+    background-color: var(--text-color);
+}
+
+.current-info {
+    width: 50%;
+    text-align: right;
+    /* background-color: lightblue; */
+    margin-left: 2vw;
+}
+
+.current-info p:nth-child(1) {
+    font-size: var(--font-size-xxl);
+    line-height: 2.5rem;
+    font-weight: var(--font-weight-bold);
+}
+
+.current-info p:nth-child(2), .current-info p:nth-child(3) {
+    font-size: var(--font-size-m);
+    font-weight: var(--font-weight-semi-bold);
+    line-height: 1.2rem;
+    color: var(--text-grey);
+}
+
+mat-card-content {
+    width: 100%;
+    height: auto;  
+    margin-top: 0.7rem;
+    padding: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--background-color-white);
+    border-bottom-left-radius: var(--border-radius-lg);
+    border-bottom-right-radius: var(--border-radius-lg);
+}
+
+.forecast-card {
+    width: auto;
+    height: 100%;
+    padding: 0.5rem;
+    /*background-color: var(--background-light-color); */
+}
+
+.forecast-header {
+    height: auto;
+    text-align: center;
+    margin-bottom: 0.5em;
+    /*background-color: lightcoral;*/
+    font-size: var(--font-size-l);
+    font-weight: var(--font-weight-semi-bold);
+}
+
+.forecast-body {
+    width: 100%;
+    height: 6rem;
+    margin-bottom: 0.2em;
+    /*background-color: lightseagreen;*/
+}
+
+.forecast-card footer {
+    height: 1.2rem;
+    /*background-color: lightslategray;*/
+}
+
+.forecast-card footer div {
+    display: inline-block;
+    width: 50%;
+    height: 100%;
+    text-align: center;
+    /* background-color: lightgray; */
+    font-weight: var(--font-weight-semi-bold);
+}
+
+.forecast-card footer div:nth-child(2) {
+    color: var(--text-light-grey);
+}
+
+
+

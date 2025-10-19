@@ -1,0 +1,43 @@
+mat-card {    
+    height: 100vh;
+    background-color: var(--background-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+mat-card-title {
+    font-family: var(--font-primary);
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: 1.5rem;
+    text-align: end;
+}
+
+section {
+    width: auto;
+    height: auto;
+ 	padding: 1rem;
+    border-radius: var(--border-radius-md);
+}
+
+
+
+section mat-card-content {
+    width: 100%;
+    height: 100%;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    padding: 4rem;
+    text-align: right;
+    font-family: var(--font-secondary);
+    font-weight: var(--font-weight-semi-bold);
+}
+
+.material-symbols-outlined {
+  margin-left: 0.2rem;
+}

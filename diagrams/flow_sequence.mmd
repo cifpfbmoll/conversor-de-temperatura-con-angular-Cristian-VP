@@ -1,0 +1,111 @@
+sequenceDiagram
+    participant U as Usuario
+    participant VC as WeatherComponent<br/>(Vista + Controlador)
+    participant WS as WeatherService<br/>(Gestor de Datos)
+    participant API as Google Weather API<br/>(Externa)
+
+    %% ══════════════════════════════════════════════════════════
+    %% FASE 1: INICIALIZACIÓN DEL COMPONENTE
+    %% ══════════════════════════════════════════════════════════
+    
+    Note over VC: Angular crea el componente
+    activate VC
+    VC->>VC: constructor(weatherService)
+    Note right of VC: Inyecta el servicio<br/>via Dependency Injection
+    
+    VC->>VC: ngOnInit()
+    Note right of VC: Hook del ciclo de vida<br/>Se ejecuta automáticamente<br/>al inicializar
+    
+    VC->>VC: cargando = true<br/>error = null
+    Note right of VC: Activa indicador<br/>de carga en UI
+    
+    %% ══════════════════════════════════════════════════════════
+    %% FASE 2: PETICIÓN DE DATOS A LA API
+    %% ══════════════════════════════════════════════════════════
+    
+    VC->>WS: obtenerPronostico(lat, lon)
+    activate WS
+    Note right of WS: Recibe coordenadas<br/>geográficas
+    
+    WS->>WS: construirURL(lat, lon)
+    Note right of WS: Construye URL con:<br/>- apiKey<br/>- parámetros lat/lon<br/>- formato JSON
+    
+    WS->>API: HTTP GET request
+    activate API
+    Note right of API: Petición HTTP a:<br/>Google Weather API<br/>con autenticación
+    
+    API-->>WS: JSON Response
+    deactivate API
+    Note left of API: Devuelve datos:<br/>- forecast (array)<br/>- temperature<br/>- weather icons
+    
+    WS->>WS: transformarRespuesta(json)
+    Note right of WS: Mapea JSON a objetos<br/>DiaPronostico[]:<br/>fecha, temperatura,<br/>iconoClima
+    
+    WS-->>VC: Observable~DiaPronostico[]~
+    deactivate WS
+    Note left of WS: Emite array de pronósticos<br/>via Observable (patrón Rx)
+    
+    VC->>VC: pronosticoDias = datos
+    VC->>VC: cargando = false
+    Note right of VC: Almacena datos<br/>Desactiva spinner<br/>Angular actualiza vista
+    
+    VC->>U: Renderiza banner con 7 días
+    deactivate VC
+    Note right of U: Muestra UI con:<br/>MatCard por cada día<br/>Temperatura en °C
+    
+    %% ══════════════════════════════════════════════════════════
+    %% FASE 3: INTERACCIÓN DEL USUARIO (Toggle C/F)
+    %% ══════════════════════════════════════════════════════════
+    
+    U->>VC: Click en MatSlideToggle
+    activate VC
+    Note left of U: Usuario cambia unidad
+    
+    VC->>VC: toggleUnidad()
+    
+    alt unidad == "C"
+        VC->>VC: unidad = "F"
+        VC->>VC: convertirTodosDiasAFahrenheit()
+        loop Para cada día en pronosticoDias
+            VC->>VC: dia.temp = celsiusAFahrenheit(dia.temp)
+            Note right of VC: Fórmula: (C × 9/5) + 32
+        end
+    else unidad == "F"
+        VC->>VC: unidad = "C"
+        VC->>VC: convertirTodosDiasACelsius()
+        loop Para cada día en pronosticoDias
+            VC->>VC: dia.temp = fahrenheitACelsius(dia.temp)
+            Note right of VC: Fórmula: (F - 32) × 5/9
+        end
+    end
+    
+    Note right of VC: NO llama a la API<br/>Solo transforma datos<br/>existentes en memoria
+    
+    VC->>U: Actualiza vista con nuevas temperaturas
+    deactivate VC
+    Note right of U: Angular detecta cambios<br/>y re-renderiza automáticamente
+    
+    %% ══════════════════════════════════════════════════════════
+    %% FASE 4: MANEJO DE ERRORES (Flujo alternativo)
+    %% ══════════════════════════════════════════════════════════
+    
+    Note over VC,API: FLUJO ALTERNATIVO: Error en API
+    
+    VC->>WS: obtenerPronostico(lat, lon)
+    activate WS
+    WS->>API: HTTP GET request
+    activate API
+    API-->>WS: Error 401/500/Network
+    deactivate API
+    
+    WS->>WS: catchError()
+    Note right of WS: Captura error HTTP<br/>Lanza excepción
+    
+    WS-->>VC: Error Observable
+    deactivate WS
+    
+    VC->>VC: error = "No se pudo obtener..."<br/>cargando = false
+    Note right of VC: Actualiza estado<br/>Muestra mensaje al usuario
+    
+    VC->>U: Muestra MatSnackBar con error
+    Note right of U: Notificación temporal<br/>con mensaje de error
