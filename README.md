@@ -217,9 +217,6 @@ sequenceDiagram
     VC->>U: Muestra MatSnackBar con error
     Note right of U: Notificación temporal<br/>con mensaje de error
 
-···
-
-    deactivate VC
 ``` 
     
 ## Refactorización y Manejo de API Key
