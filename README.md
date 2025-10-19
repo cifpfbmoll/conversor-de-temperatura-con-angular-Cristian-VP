@@ -84,6 +84,7 @@ classDiagram
     note for WeatherService "SERVICIO: Gestión de datos\nComunicación con API externa\nTransformación de respuesta JSON"
     note for WeatherComponent "COMPONENTE: Controlador de vista\nOrquesta lógica de negocio\nGestiona estado y eventos de usuario"
 
+```
 
 Las dependencias principales incluyen Angular Material para componentes UI y HttpClientModule para las solicitudes HTTP.
 En el siguiente listado se detallan las dependencias usadas en el proyecto:
@@ -216,6 +217,11 @@ sequenceDiagram
     VC->>U: Muestra MatSnackBar con error
     Note right of U: Notificación temporal<br/>con mensaje de error
 
+···
+
+    deactivate VC
+``` 
+    
 ## Refactorización y Manejo de API Key
 
 Durante el desarrollo, se realizó una refactorización del JSON recibido desde la API para simplificar y estructurar mejor los datos utilizados en la aplicación. Además, se implementó un manejo seguro de la API Key, evitando su exposición directa en el código fuente y facilitando su configuración mediante variables de entorno o archivos protegidos.
